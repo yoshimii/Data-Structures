@@ -10,10 +10,10 @@ class LRUCache:
     to every node stored in the cache.
     """
     def __init__(self, limit=10):
-        self.limit = 10
+        self.limit = 0
         self.curr_size = 0
-        self.cache_storage = DoublyLinkedList()
-        self.cache_nodes = {}     
+        self.data_storage = DoublyLinkedList()
+        self.cache_storage = {}     
 
     """
     Retrieves the value associated with the given key. Also
@@ -23,8 +23,8 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        if key in self.cache_nodes:
-            return self.cache_nodes[key]
+        if key in self.cache_storage:
+            return self.cache_storage[key]
         else:
             return None
 
@@ -39,12 +39,13 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        if key in self.cache_nodes:
-            self.cache_storage.move_to_end(value)
-        elif self.cache_storage.length == self.limit:
-            self.cache_storage.remove_from_head()
-            self.cache_storage.add_to_tail(value)
-            self.cache_nodes[key] = value
+        if key in self.cache_storage:
+            self.data_storage.move_to_end(value)
+            self.cache_storage[key] = value
+        elif self.data_storage.length == self.limit:
+            self.data_storage.remove_from_head()
+            self.data_storage.add_to_tail(value)
+            self.cache_storage[key] = value
         else:
-            self.cache_storage.add_to_tail(value)
-            self.cache_nodes[key] = value
+            self.data_storage.add_to_tail(value)
+            self.cache_storage[key] = value
