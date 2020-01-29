@@ -13,9 +13,7 @@ class LRUCache:
         self.limit = 10
         self.curr_size = 0
         self.cache_storage = DoublyLinkedList()
-        self.cache_nodes = {}
-        
-        
+        self.cache_nodes = {}     
 
     """
     Retrieves the value associated with the given key. Also
@@ -25,7 +23,10 @@ class LRUCache:
     key-value pair doesn't exist in the cache.
     """
     def get(self, key):
-        pass
+        if key in self.cache_nodes:
+            return self.cache_nodes[key]
+        else:
+            return None
 
     """
     Adds the given key-value pair to the cache. The newly-
@@ -38,4 +39,12 @@ class LRUCache:
     the newly-specified value.
     """
     def set(self, key, value):
-        pass
+        if key in self.cache_nodes:
+            self.cache_storage.move_to_end(value)
+        elif self.cache_storage.length == self.limit:
+            self.cache_storage.remove_from_head()
+            self.cache_storage.add_to_tail(value)
+            self.cache_nodes[key] = value
+        else:
+            self.cache_storage.add_to_tail(value)
+            self.cache_nodes[key] = value
