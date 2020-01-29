@@ -2,8 +2,6 @@ import sys
 sys.path.append('../doubly_linked_list')
 from doubly_linked_list import DoublyLinkedList
 
-print(DoublyLinkedList().remove_from_head)
-
 class Queue:
     def __init__(self):
         self.size = 0

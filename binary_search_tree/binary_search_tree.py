@@ -3,19 +3,31 @@ sys.path.append('../queue_and_stack')
 from dll_queue import Queue
 from dll_stack import Stack
 
+sys.path.append('../doubly_linked_list')
+from doubly_linked_list import DoublyLinkedList
 
 class BinarySearchTree:
     def __init__(self, value):
         self.value = value
         self.left = None
         self.right = None
-        self.tree = Queue()
-        self.root = self.tree.storage.head
-    # Insert the given value into the tree
-    def insert(self, value):
-        print(self.root)
+  
         
-
+    # Insert the given value into the tree
+    def insert(self, value):             
+        if self.value is None:
+            self.value = value
+            
+        elif value < self.value:
+            if self.left is None:
+                self.left = BinarySearchTree(value)
+            else: self.left.insert(value)
+        elif value > self.value:
+            if self.right is None:
+                self.right = BinarySearchTree(value)
+            else: self.right.insert(value)
+        else:
+            pass
     # Return True if the tree contains the value
     # False if it does not
     def contains(self, target):
@@ -24,6 +36,8 @@ class BinarySearchTree:
     # Return the maximum value found in the tree
     def get_max(self):
         pass
+        # else:
+        #     return self.tree.storage.get_max()
 
     # Call the function `cb` on the value of each node
     # You may use a recursive or iterative approach
